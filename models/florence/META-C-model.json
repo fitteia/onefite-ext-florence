@@ -1,7 +1,7 @@
 {
   "name": "florence",
   "license": {
-    "spdx": "LicenseRef-Restricted-Pending-Review",
+    "spdx": "Artistic-2.0",
     "license_file": "LICENSE",
     "notice_file": "NOTICE"
   },

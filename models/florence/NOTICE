@@ -1,0 +1,112 @@
+Florence model bundle
+
+The Florence C and Fortran sources previously included externally sourced
+numerical routines whose redistribution terms required review before this
+bundle could be published or included in a binary release.
+
+Update: the NAG-derived complex Hermitian eigensolver (F01BCF, the original
+body of F02AXF, F02AYF, P01ABF, and P01ABZ) has been replaced, preserving
+F02AXF's exact call signature, IFAIL semantics, and eigenvector
+phase-normalization convention so no caller needed any change. No NAG
+copyright notices or NAG Library routine names remain in Florence_f.f as of
+this change.
+
+This went through two implementations. The first replaced the NAG code with
+LAPACK's ZHEEV (BSD-3-Clause), verified numerically equivalent via (1) a
+synthetic head-to-head comparison against the original NAG-derived code
+across random complex Hermitian matrices of several sizes (max eigenvalue
+difference 7.5e-14, max eigenvector difference 9.7e-15 - floating-point
+round-off noise, not a discrepancy), and (2) this bundle's own
+golden-output regression test (models/florence/tests/run_tests.sh),
+re-run against the real Florence physics model end to end (max relative
+difference 6.4e-16 - single-ULP noise). That version was measured live to
+make real Florence fits 1.5-2x slower than the original NAG code: this
+routine runs once per MINUIT chi2 evaluation on matrices that are tiny in
+practice (N=6-8 for the models this was measured against), where a
+general-purpose LAPACK routine's per-call overhead dominates over the
+arithmetic itself - not fixable by workspace tuning, which was tried and
+made no difference.
+
+A second attempt replaced ZHEEV with a hand-rolled cyclic-Jacobi
+eigensolver (CHEEVJ/CJROT), removing LAPACK's per-call overhead entirely.
+It was correct (verified against known-answer cases and ZHEEV directly
+across hundreds of random Hermitian matrices) but, measured live, still
+slower than ZHEEV - Jacobi's method does asymptotically more arithmetic
+per solve than Householder+QL (several full O(N^2) sweeps versus one
+O(N^3) reduction plus a cheaper iteration), so removing LAPACK's overhead
+wasn't enough to also beat LAPACK's algorithm choice.
+
+A third attempt (CHEEVHQ/CHTRID/TRIDQL_Z, since removed/superseded) backed
+F02AXF with a hand-rolled Householder-tridiagonalization + implicit-QL
+eigensolver using native COMPLEX*16 arithmetic - the same algorithm family
+the original NAG code and LAPACK's ZHEEV both use internally, written from
+the mathematical description (standard, decades-old published numerical
+linear algebra, e.g. Golub & Van Loan's "Matrix Computations"), not
+derived from NAG's, LAPACK's, or EISPACK's source, and verified in three
+stages (CHTRID alone, TRIDQL_Z alone, then the combined pipeline - known-
+answer cases plus a random-Hermitian-matrix sweep vs ZHEEV, N=2..30). An
+isolated per-call microbenchmark suggested this should beat ZHEEV by
+~1.9x and the original NAG code outright, but measured live on a real
+Florence fit it was only ~1.7x slower than NAG (real-world embedded
+performance did not match the isolated benchmark - most likely cache-
+locality effects: a tight microbenchmark loop keeps everything hot in L1
+cache in a way a real fit's much larger surrounding computation does not).
+This was real, measured progress (down from ZHEEV's ~2x and Jacobi's
+~2.7x slowdown) but not a full win.
+
+Analyzing (not copying) the original NAG code's source found it never
+used native COMPLEX*16 arithmetic at all - both F01BCF and F02AYF kept
+real and imaginary parts as separate DOUBLE PRECISION arrays throughout,
+a well-known, generic 1970s-80s Fortran performance idiom (also used in
+EISPACK/LINPACK) for avoiding compiler overhead in native complex
+arithmetic. F02AXF is now backed by CHEEVHQR/CHTRIDR/TRIDQLR, which apply
+that same general technique to the CHEEVHQ version's own already-derived
+formulas (every complex multiply/add hand-expanded into its real and
+imaginary components) - not a line of NAG's code, just the same
+structural idea, independently re-derived. AR/AI are used directly with
+no complex-packing step. Verified the same way as CHEEVHQ (known-answer
+cases plus the random-Hermitian-matrix sweep vs ZHEEV, N=2..30) before
+being wired in - see models/florence/tests/test_cheevhqr.f. Golden-output
+regression re-run against the real physics model: byte-identical to the
+COMPLEX*16 version's output (same algorithm, same operation order).
+Measured live on the same real Florence fit: ~1.63x slower than the
+original NAG code (33.0s vs 20.2s), a small further improvement over the
+COMPLEX*16 version's ~1.69x (34.1s) - consistent with the isolated
+microbenchmark's finding of no meaningful per-call difference between the
+two arithmetic styles for this workload. Full real-fit comparison across
+every version attempted (all on the same fit, florenceN4LS_fH_R1OSabh_test.json,
+N=8, 5 trials each): NAG 20.2s (baseline), ZHEEV 40.6s (+101%), Jacobi
+54.8s (+171%), Householder+QL/COMPLEX*16 34.1s (+69%), Householder+QL/
+split-real 33.0s (+63%). Chi2 differs by ~6% across every Householder+QL
+attempt (1.53 vs 1.45) - consistent with ordinary MINUIT-iterative-
+optimizer path sensitivity to which floating-point algorithm computes the
+model function, not a correctness problem (each algorithm's own golden-
+output regression against itself passes to ULP-level precision).
+
+Two further performance angles were investigated and found not
+applicable: (1) TRIDQL's QL-iteration count on real Florence matrices is
+normal (avg ~1.8 iterations per eigenvalue, max 5) - not the cause of the
+gap to NAG; (2) F02AXF's input matrix changes on every single call within
+a fit (measured repeat fraction: exactly zero) - the underlying physics
+requires diagonalizing a different matrix at every data point, so no
+form of result caching applies here.
+
+Given four real implementations attempted and no further concrete,
+promising lead identified, this is considered the final state pending
+further external investigation.
+
+Provenance and license: this bundle's original authors are Giacomo
+Parigi and Adam Kubrak (credited in Florence_f.f's own header comment
+for the FIRELAX implementation), with further development by Pedro
+Sebastiao, who is the copyright holder publishing this bundle. The
+NAG-derived eigensolver documented above is the only externally
+sourced numerical routine identified in this bundle - Florence_c.c and
+the rest of Florence_f.f were searched for any other third-party
+copyright markers or attribution and found clean; their provenance as
+the named authors' own original work rests on that authorship, as with
+any published open-source code. The eigensolver's clean-room
+replacement (this file's history above) was developed with AI-assisted
+programming support from Claude and Codex.
+
+Licensed under the Artistic License 2.0 - see this bundle's own
+LICENSE file and the repository's top-level LICENSE.

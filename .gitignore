@@ -1,0 +1,6 @@
+# Build outputs are produced locally and are not source distributions.
+models/*/build/
+models/*/*.o
+models/*/*.a
+*.o
+*.a

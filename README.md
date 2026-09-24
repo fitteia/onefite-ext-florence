@@ -1,4 +1,4 @@
-# onefite-external-extensions
+# onefite-ext-florence
 
 Optional OneFit model bundles, kept in a separate repository from the
 license-clean `onefite-c-code` core so each bundle's own license and

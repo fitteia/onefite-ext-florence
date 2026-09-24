@@ -8,7 +8,7 @@ all), fitting the same three real datasets against both.
 
 ## Why this replacement exists
 
-The Florence model bundle (`onefite-external-extensions`) previously
+The Florence model bundle (`onefite-ext-florence`) previously
 contained NAG-copyrighted Fortran routines (`F01BCF`, `F02AYF`, plus the
 NAG-derived body of `F02AXF`) whose redistribution terms required review
 before the bundle could be published. Those routines have been fully

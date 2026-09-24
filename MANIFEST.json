@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "name": "onefite-external-extensions",
+  "name": "onefite-ext-florence",
   "version": "0.1.0",
   "models": ["florence"],
   "license_policy": "per-model"

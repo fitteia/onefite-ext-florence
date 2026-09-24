@@ -1,4 +1,4 @@
-onefite-external-extensions
+onefite-ext-florence
 
 This is the public, redistributable copy of the OneFit external model
 extensions. It contains no NAG Library code and no other externally
@@ -6,7 +6,7 @@ sourced numerical routines whose redistribution terms were unclear -
 those have been fully removed and replaced with clean-room
 reimplementations (see each model's own NOTICE for details).
 
-A separate, private repository (onefite-external-extensions-NAG)
+A separate, private repository (onefite-ext-florence-nag)
 holds the original, NAG-derived history for anyone who already holds
 the appropriate NAG Library license and prefers the original
 implementation. It is not linked from here and is not distributed

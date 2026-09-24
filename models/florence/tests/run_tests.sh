@@ -6,18 +6,18 @@ WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
 echo "== building Florence extension =="
-gfortran -c -ffixed-form "$MODEL/Florence_f.f" -o "$WORK/f.o"
+gfortran -c -ffixed-form -std=legacy "$MODEL/Florence_f.f" -o "$WORK/f.o"
 gcc -c -I"$MODEL" "$MODEL/Florence_c.c" -o "$WORK/c.o"
 gcc -I"$MODEL" "$HERE/test_driver.c" "$WORK/f.o" "$WORK/c.o" -lgfortran -lm -o "$WORK/driver"
 gcc -I"$MODEL" "$HERE/staleness_demo.c" "$WORK/f.o" "$WORK/c.o" -lgfortran -lm -o "$WORK/staleness_demo"
-gfortran -c -ffixed-form "$HERE/test_eigensolver.f" -o "$WORK/test_eigensolver.o"
+gfortran -c -ffixed-form -std=legacy "$HERE/test_eigensolver.f" -o "$WORK/test_eigensolver.o"
 gfortran "$WORK/test_eigensolver.o" "$WORK/f.o" -o "$WORK/test_eigensolver"
 
 echo "== eigensolver known-answer regression =="
 "$WORK/test_eigensolver"
 
 echo "== Householder+QL eigensolver internals regression =="
-gfortran -O2 -ffixed-form "$HERE/test_cheevhqr.f" -llapack -lblas -o "$WORK/test_cheevhqr"
+gfortran -O2 -ffixed-form -std=legacy "$HERE/test_cheevhqr.f" -llapack -lblas -o "$WORK/test_cheevhqr"
 "$WORK/test_cheevhqr"
 
 echo "== golden regression =="

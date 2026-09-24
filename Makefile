@@ -10,7 +10,7 @@ METAOUT ?= $(C_ROOT)/META-C.json
 CC ?= cc
 FC = gfortran
 CFLAGS ?= -O3 -fPIC -I$(MODEL_DIR) -I$(C_ROOT)/core/onefit-3.1 -I$(C_ROOT)/include
-FFLAGS ?= -O3 -fPIC -ffixed-form
+FFLAGS ?= -O3 -fPIC -ffixed-form -std=legacy
 
 .PHONY: all clean test install
 all: $(BUILD_DIR)/libonefit-external-models.a

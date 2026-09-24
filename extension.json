@@ -24,6 +24,9 @@
     "models/florence/Florence_c.h"
   ],
   "extra_libs": [],
+  "fflags": [
+    "-std=legacy"
+  ],
   "metadata": "models/florence/META-C-model.json",
   "tests": "models/florence/tests/run_tests.sh",
   "license": {

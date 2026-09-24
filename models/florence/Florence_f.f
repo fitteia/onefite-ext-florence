@@ -6568,6 +6568,9 @@ C    CONTACT TERM
       COMPLEX*16 SK0(3,3),SK1(3,3),SK_1(3,3)
       COMPLEX*16 CC0(9),CC1(9),CC_1(9)
       COMPLEX*16 AMP
+      COMPLEX*16 AMPX,AMPY
+C     Statement function: same arithmetic as external AMP, but inlined.
+      AMP(AMPX,AMPY)=AMPX*DCONJG(AMPY)
 
       WI=PI2*BZ
       WS=658.2*WI
@@ -6723,11 +6726,11 @@ C*****************************************************************************
        DO 20 k=1, 3
        DO 21 n=1, 3
        ALFA(k,n)=1.0D0/6.0D0*(AMP(V(k,1),V(n,1))-
-     +2.0D0*AMP(V(k,2),V(n,2))+AMP(V(k,3),V(n,3)))**2.0+
-     +1.0D0/2.0D0*(AMP(V(k,1),V(n,2))-AMP(V(k,2), V(n,3)))**2.0+
-     +1.0D0/2.0D0*(AMP(V(k,3),V(n,2))-AMP(V(k,2), V(n,1)))**2.0+
-     +AMP(V(k,1),V(n,3))**2.0+
-     +AMP(V(k,3),V(n,1))**2.0
+     +2.0D0*AMP(V(k,2),V(n,2))+AMP(V(k,3),V(n,3)))**2+
+     +1.0D0/2.0D0*(AMP(V(k,1),V(n,2))-AMP(V(k,2), V(n,3)))**2+
+     +1.0D0/2.0D0*(AMP(V(k,3),V(n,2))-AMP(V(k,2), V(n,1)))**2+
+     +AMP(V(k,1),V(n,3))**2+
+     +AMP(V(k,3),V(n,1))**2
  21    CONTINUE
  20    CONTINUE
 
@@ -6748,11 +6751,11 @@ C     definicja wspolczynnikow psia
       DO 22 k=1, 3
       DO 23 n=1, 3
       PSI(k,n)=-1.0D0/12.0D0*(AMP(V(k,1),V(n,1))-
-     +2.0D0*AMP(V(k,2),V(n,2))+AMP(V(k,3),V(n,3)))**2.0-
-     +1.0D0/4.0D0*(AMP(V(k,2),V(n,1))-AMP(V(k,3),V(n,2)))**2.0-
-     +1.0D0/4.0D0*(-AMP(V(k,1),V(n,2))+AMP(V(k,2),V(n,3)))**2.0-
-     +1.0D0/2.0D0*AMP(V(k,3),V(n,1))**2.0-
-     +1.0D0/2.0D0*AMP(V(k,1),V(n,3))**2.0
+     +2.0D0*AMP(V(k,2),V(n,2))+AMP(V(k,3),V(n,3)))**2-
+     +1.0D0/4.0D0*(AMP(V(k,2),V(n,1))-AMP(V(k,3),V(n,2)))**2-
+     +1.0D0/4.0D0*(-AMP(V(k,1),V(n,2))+AMP(V(k,2),V(n,3)))**2-
+     +1.0D0/2.0D0*AMP(V(k,3),V(n,1))**2-
+     +1.0D0/2.0D0*AMP(V(k,1),V(n,3))**2
  23   CONTINUE
  22   CONTINUE
       psi12=PSI(1,2)
@@ -6770,10 +6773,10 @@ C     definicja wspolczynnikow pa
       P(k,n)=-1.0D0/12.0D0*(AMP(V(k,1),V(k,1))-
      +2.0D0*AMP(V(k,2),V(k,2))+AMP(V(k,3),V(k,3))-
      +AMP(V(n,1),V(n,1))+
-     +2.0D0*AMP(V(n,2),V(n,2))-AMP(V(n,3),V(n,3)))**2.0-
+     +2.0D0*AMP(V(n,2),V(n,2))-AMP(V(n,3),V(n,3)))**2-
      +1.0D0/2.0D0*(AMP(V(k,1),V(k,2))-AMP(V(k,2),V(k,3))-
-     +AMP(V(n,1),V(n,2))+AMP(V(n,2),V(n,3)))**2.0-
-     +(AMP(V(k,1),V(k,3))-AMP(V(n,1),V(n,3)))**2.0
+     +AMP(V(n,1),V(n,2))+AMP(V(n,2),V(n,3)))**2-
+     +(AMP(V(k,1),V(k,3))-AMP(V(n,1),V(n,3)))**2
  25   CONTINUE
  24   CONTINUE
       p12=P(1,2)
@@ -7284,6 +7287,9 @@ c      C(1,1,19)=gz**2*(primo)*1.0d-0
       COMPLEX*16 SK0(4,4),SK1(4,4),SK_1(4,4)
       COMPLEX*16 CC0(16),CC1(16),CC_1(16)
       COMPLEX*16 AMP
+      COMPLEX*16 AMPX,AMPY
+C     Statement function: same arithmetic as external AMP, but inlined.
+      AMP(AMPX,AMPY)=AMPX*DCONJG(AMPY)
 
 
       WI=PI2*BZ
@@ -7560,11 +7566,11 @@ C*****************************************************************************
        ALFA(k,n)=3.0D0/2.0D0*(AMP(V(k,1),V(n,1))-
      +                    AMP(V(k,2),V(n,2))-
      +                    AMP(V(k,3),V(n,3))+
-     +                    AMP(V(k,4),V(n,4)))**2.0+
-     +3.0D0*(AMP(V(k,3),V(n,4))-AMP(V(k,1),V(n,2)))**2.0+
-     +3.0D0*(AMP(V(k,2),V(n,1))-AMP(V(k,4),V(n,3)))**2.0+
-     +3.0D0*(AMP(V(k,4),V(n,2))+AMP(V(k,1),V(n,3)))**2.0+
-     +3.0D0*(AMP(V(k,3),V(n,1))+AMP(V(k,2),V(n,4)))**2.0
+     +                    AMP(V(k,4),V(n,4)))**2+
+     +3.0D0*(AMP(V(k,3),V(n,4))-AMP(V(k,1),V(n,2)))**2+
+     +3.0D0*(AMP(V(k,2),V(n,1))-AMP(V(k,4),V(n,3)))**2+
+     +3.0D0*(AMP(V(k,4),V(n,2))+AMP(V(k,1),V(n,3)))**2+
+     +3.0D0*(AMP(V(k,3),V(n,1))+AMP(V(k,2),V(n,4)))**2
 
  21   CONTINUE
  20   CONTINUE
@@ -7591,11 +7597,11 @@ C     definicja wspolczynnikow psi
       PSI(k,n)=-3.0D0/4.0D0*(AMP(V(k,1),V(n,1))-
      +                   AMP(V(k,2),V(n,2))-
      +                   AMP(V(k,3),V(n,3))-
-     +                   AMP(V(k,4),V(n,4)))**2.0-
-     +3.0D0/2.0D0*(AMP(V(k,3),V(n,4))-AMP(V(k,1),V(n,2)))**2.0-
-     +3.0D0/2.0D0*(AMP(V(k,2),V(n,1))-AMP(V(k,4),V(n,3)))**2.0-
-     +3.0D0/2.0D0*(AMP(V(k,4),V(n,2))-AMP(V(k,1),V(n,3)))**2.0-
-     +3.0D0/2.0D0*(AMP(V(k,3),V(n,1))-AMP(V(k,2),V(n,4)))**2.0
+     +                   AMP(V(k,4),V(n,4)))**2-
+     +3.0D0/2.0D0*(AMP(V(k,3),V(n,4))-AMP(V(k,1),V(n,2)))**2-
+     +3.0D0/2.0D0*(AMP(V(k,2),V(n,1))-AMP(V(k,4),V(n,3)))**2-
+     +3.0D0/2.0D0*(AMP(V(k,4),V(n,2))-AMP(V(k,1),V(n,3)))**2-
+     +3.0D0/2.0D0*(AMP(V(k,3),V(n,1))-AMP(V(k,2),V(n,4)))**2
 
  23   CONTINUE
  22   CONTINUE
@@ -7622,11 +7628,11 @@ C     definicja wspolczynnikow p
      +                 AMP(V(n,1),V(n,1))+
      +                 AMP(V(n,2),V(n,2))+
      +                 AMP(V(n,3),V(n,3))-
-     +                 AMP(V(n,4),V(n,4)))**2.0-
+     +                 AMP(V(n,4),V(n,4)))**2-
      +3.0D0*(AMP(V(k,3),V(k,4))-AMP(V(k,1),V(k,2))-
-     +AMP(V(n,3),V(n,4))+AMP(V(n,1),V(n,2)))**2.0-
+     +AMP(V(n,3),V(n,4))+AMP(V(n,1),V(n,2)))**2-
      +3.0D0*(AMP(V(k,4),V(k,2))-AMP(V(k,1),V(k,3))-
-     +AMP(V(n,4),V(n,2))+AMP(V(n,1),V(n,3)))**2.0
+     +AMP(V(n,4),V(n,2))+AMP(V(n,1),V(n,3)))**2
 
  25   CONTINUE
  24   CONTINUE
@@ -8287,6 +8293,9 @@ c      C(1,1,19)=gz**2*(primo)*1.0d-0
       COMPLEX*16 CC0a(2),CC1a(2),CC_1a(2),ADM(2,2)
       COMPLEX*16 DA(5,5),VK(5,5)
       COMPLEX*16 AMP
+      COMPLEX*16 AMPX,AMPY
+C     Statement function: same arithmetic as external AMP, but inlined.
+      AMP(AMPX,AMPY)=AMPX*DCONJG(AMPY)
 
       WI=PI2*BZ
       WS=658.2*WI*2.25023/2.023
@@ -8602,21 +8611,21 @@ C*****************************************************************************
      +            DSQRT(6.0D0)*AMP(V(k,3),V(n,3))+
      +            DSQRT(6.0D0)*AMP(V(k,5),V(n,5))-
      +        3.0D0/DSQRT(6.0D0)*AMP(V(k,2),V(n,2))-
-     +        3.0D0/DSQRT(6.0D0)*AMP(V(k,4),V(n,4)))**2.0+
+     +        3.0D0/DSQRT(6.0D0)*AMP(V(k,4),V(n,4)))**2+
      +           (3.0D0*AMP(V(k,1),V(n,2))+
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,2),V(n,3))-
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(n,4))-
-     +            3.0D0*AMP(V(k,4),V(n,5)))**2.0+
+     +            3.0D0*AMP(V(k,4),V(n,5)))**2+
      +           (-3.0D0*AMP(V(k,2),V(n,1))-
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(n,2))+
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,4),V(n,3))+
-     +            3.0D0*AMP(V(k,5),V(n,4)))**2.0+
+     +            3.0D0*AMP(V(k,5),V(n,4)))**2+
      +       (DSQRT(6.0D0)*AMP(V(k,1),V(n,3))+
      +        3.0D0*AMP(V(k,2),V(n,4))+
-     +        DSQRT(6.0D0)*AMP(V(k,3),V(n,5)))**2.0+
+     +        DSQRT(6.0D0)*AMP(V(k,3),V(n,5)))**2+
      +       (DSQRT(6.0D0)*AMP(V(k,3),V(n,1))+
      +        3.0D0*AMP(V(k,4),V(n,2))+
-     +        DSQRT(6.0D0)*AMP(V(k,5),V(n,3)))**2.0
+     +        DSQRT(6.0D0)*AMP(V(k,5),V(n,3)))**2
 
  21   CONTINUE
  20   CONTINUE
@@ -8645,25 +8654,25 @@ C     definicja wspolczynnikow psi
      +          DSQRT(6.0D0)*AMP(V(k,3),V(n,3))+
      +          DSQRT(6.0D0)*AMP(V(k,5),V(n,5))-
      +      3.0D0/DSQRT(6.0D0)*AMP(V(k,2),V(n,2))-
-     +      3.0D0/DSQRT(6.0D0)*AMP(V(k,4),V(n,4)))**2.0-
+     +      3.0D0/DSQRT(6.0D0)*AMP(V(k,4),V(n,4)))**2-
      +         1.0D0/2.0D0*
      +         (3.0D0*AMP(V(k,2),V(n,1))+
      +      DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(n,2))-
      +      DSQRT(6.0D0)/2.0D0*AMP(V(k,4),V(n,3))-
-     +          3.0D0*AMP(V(k,5),V(n,4)))**2.0-
+     +          3.0D0*AMP(V(k,5),V(n,4)))**2-
      +         1.0D0/2.0D0*
      +         (-3.0D0*AMP(V(k,1),V(n,2))-
      +      DSQRT(6.0D0)/2.0D0*AMP(V(k,2),V(n,3))+
      +      DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(n,4))+
-     +          3.0D0*AMP(V(k,4),V(n,5)))**2.0-
+     +          3.0D0*AMP(V(k,4),V(n,5)))**2-
      +         1.0D0/2.0D0*
      +         (DSQRT(6.0D0)*AMP(V(k,3),V(n,1))+
      +                3.0D0*AMP(V(k,4),V(n,2))+
-     +      DSQRT(6.0D0)/2.0D0*AMP(V(k,5),V(n,3)))**2.0-
+     +      DSQRT(6.0D0)/2.0D0*AMP(V(k,5),V(n,3)))**2-
      +         1.0D0/2.0D0*
      +         (DSQRT(6.0D0)*AMP(V(k,1),V(n,3))+
      +                3.0D0*AMP(V(k,2),V(n,4))+
-     +      DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(n,5)))**2.0
+     +      DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(n,5)))**2
 
  23   CONTINUE
  22   CONTINUE
@@ -8698,7 +8707,7 @@ C     definicja wspolczynnikow p
      +        DSQRT(6.0D0)*AMP(V(n,3),V(n,3))-
      +        DSQRT(6.0D0)*AMP(V(n,5),V(n,5))+
      +    3.0D0/DSQRT(6.0D0)*AMP(V(n,2),V(n,2))+
-     +    3.0D0/SQRT(6.0D0)*AMP(V(n,4),V(n,4)))**2.0-
+     +    3.0D0/SQRT(6.0D0)*AMP(V(n,4),V(n,4)))**2-
      +       (3.0D0*AMP(V(k,1),V(k,2))+
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,2),V(k,3))-
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(k,4))-
@@ -8706,13 +8715,13 @@ C     definicja wspolczynnikow p
      +        3.0D0*AMP(V(n,1),V(n,2))-
      +        SQRT(6.0D0)/2.0D0*AMP(V(n,2),V(n,3))+
      +        SQRT(6.0D0)/2.0D0*AMP(V(n,3),V(n,4))+
-     +        3.0D0*AMP(V(n,4),V(n,5)))**2.0-
+     +        3.0D0*AMP(V(n,4),V(n,5)))**2-
      +       (SQRT(6.0)*AMP(V(k,1),V(k,3))+
      +        3.0D0*AMP(V(k,2),V(k,4))+
      +        DSQRT(6.0D0)/2.0D0*AMP(V(k,3),V(k,5))-
      +        DSQRT(6.0D0)*AMP(V(n,1),V(n,3))-
      +        3.0D0*AMP(V(n,2),V(n,4))-
-     +        DSQRT(6.0D0)/2.0D0*AMP(V(n,3),V(n,5)))**2.0
+     +        DSQRT(6.0D0)/2.0D0*AMP(V(n,3),V(n,5)))**2
 
  25   CONTINUE
  24   CONTINUE
@@ -9562,6 +9571,9 @@ c      C(1,1,19)=gz**2*(primo)*1.0d-0
       COMPLEX*16 CC0(36),CC1(36),CC_1(36)
       COMPLEX*16 CC0a(2),CC1a(2),CC_1a(2),ADM(2,2)
       COMPLEX*16 AMP
+      COMPLEX*16 AMPX,AMPY
+C     Statement function: same arithmetic as external AMP, but inlined.
+      AMP(AMPX,AMPY)=AMPX*DCONJG(AMPY)
 
 
       WI=PI2*BZ
@@ -9891,23 +9903,23 @@ C*****************************************************************************
      +                    4.0d0*AMP(V(k,3),V(n,3))-
      +                    4.0d0*AMP(V(k,4),V(n,4))-
      +                    AMP(V(k,5),V(n,5))+
-     +                    5.0d0*AMP(V(k,6),V(n,6)))**2.0+
+     +                    5.0d0*AMP(V(k,6),V(n,6)))**2+
      +         4.0d0*(DSQRT(5.0d0)*AMP(V(k,1),V(n,2))+
      +              DSQRT(2.0d0)*AMP(V(k,2),V(n,3))-
      +              DSQRT(2.0d0)*AMP(V(k,4),V(n,5))-
-     +              DSQRT(5.0d0)*AMP(V(k,5),V(n,6)))**2.0+
+     +              DSQRT(5.0d0)*AMP(V(k,5),V(n,6)))**2+
      +         4.0d0*(-DSQRT(5.0d0)*AMP(V(k,2),V(n,1))-
      +              DSQRT(2.0d0)*AMP(V(k,3),V(n,2))+
      +              DSQRT(2.0d0)*AMP(V(k,5),V(n,4))+
-     +              DSQRT(5.0d0)*AMP(V(k,6),V(n,5)))**2.0+
+     +              DSQRT(5.0d0)*AMP(V(k,6),V(n,5)))**2+
      +             (DSQRT(10.0d0)*AMP(V(k,1),V(n,3))+
      +              3.0d0*DSQRT(2.0d0)*AMP(V(k,2),V(n,4))+
      +              3.0d0*DSQRT(2.0d0)*AMP(V(k,3),V(n,5))+
-     +              DSQRT(10.0d0)*AMP(V(k,4),V(n,6)))**2.0+
+     +              DSQRT(10.0d0)*AMP(V(k,4),V(n,6)))**2+
      +             (DSQRT(10.0d0)*AMP(V(k,3),V(n,1))+
      +              3.0d0*DSQRT(2.0d0)*AMP(V(k,4),V(n,2))+
      +              3.0d0*DSQRT(2.0d0)*AMP(V(k,5),V(n,3))+
-     +              DSQRT(10.0d0)*AMP(V(k,6),V(n,4)))**2.0
+     +              DSQRT(10.0d0)*AMP(V(k,6),V(n,4)))**2
 
  21   CONTINUE
  20   CONTINUE
@@ -9944,23 +9956,23 @@ C     definicja wspolczynnikow psi
      +                   4.0d0*AMP(V(k,3),V(n,3))-
      +                   4.0d0*AMP(V(k,4),V(n,4))-
      +                       AMP(V(k,5),V(n,5))+
-     +                   5.0d0*AMP(V(k,6),V(n,6)))**2.0+
+     +                   5.0d0*AMP(V(k,6),V(n,6)))**2+
      +             2.0d0*(DSQRT(5.0d0)*AMP(V(k,1),V(n,2))+
      +                  DSQRT(2.0d0)*AMP(V(k,2),V(n,3))-
      +                  DSQRT(2.0d0)*AMP(V(k,4),V(n,5))-
-     +                  DSQRT(5.0d0)*AMP(V(k,5),V(n,6)))**2.0+
+     +                  DSQRT(5.0d0)*AMP(V(k,5),V(n,6)))**2+
      +             2.0d0*(-DSQRT(5.0d0)*AMP(V(k,2),V(n,1))-
      +                  DSQRT(2.0d0)*AMP(V(k,3),V(n,2))+
      +                  DSQRT(2.0d0)*AMP(V(k,5),V(n,4))+
-     +                  DSQRT(5.0d0)*AMP(V(k,6),V(n,5)))**2.0+
+     +                  DSQRT(5.0d0)*AMP(V(k,6),V(n,5)))**2+
      +         1.0d0/2.0d0*(DSQRT(10.0d0)*AMP(V(k,1),V(n,3))+
      +                  3.0d0*DSQRT(2.0d0)*AMP(V(k,2),V(n,4))+
      +                  3.0d0*DSQRT(2.0d0)*AMP(V(k,3),V(n,5))+
-     +                  DSQRT(10.0d0)*AMP(V(k,4),V(n,6)))**2.0+
+     +                  DSQRT(10.0d0)*AMP(V(k,4),V(n,6)))**2+
      +         1.0d0/2.0d0*(DSQRT(10.0d0)*AMP(V(k,3),V(n,1))+
      +                  3.0d0*DSQRT(2.0d0)*AMP(V(k,4),V(n,2))+
      +                  3.0d0*DSQRT(2.0d0)*AMP(V(k,5),V(n,3))+
-     +                  DSQRT(10.0d0)*AMP(V(k,6),V(n,4)))**2.0
+     +                  DSQRT(10.0d0)*AMP(V(k,6),V(n,4)))**2
 
  23   CONTINUE
  22   CONTINUE
@@ -10000,7 +10012,7 @@ C     definicja wspolczynnikow p
      +                 4.0d0*AMP(V(n,3),V(n,3))+
      +                 4.0d0*AMP(V(n,4),V(n,4))+
      +                     AMP(V(n,5),V(n,5))-
-     +                 5.0d0*AMP(V(n,6),V(n,6)))**2.0-
+     +                 5.0d0*AMP(V(n,6),V(n,6)))**2-
      +        2.0d0*(DSQRT(5.0d0)*AMP(V(k,1),V(k,2))+
      +             DSQRT(2.0d0)*AMP(V(k,2),V(k,3))-
      +             DSQRT(2.0d0)*AMP(V(k,4),V(k,5))-
@@ -10008,7 +10020,7 @@ C     definicja wspolczynnikow p
      +             DSQRT(5.0d0)*AMP(V(n,1),V(n,2))-
      +             DSQRT(2.0d0)*AMP(V(n,2),V(n,3))+
      +             DSQRT(2.0d0)*AMP(V(n,4),V(n,5))+
-     +             DSQRT(5.0d0)*AMP(V(n,5),V(n,6)))**2.0-
+     +             DSQRT(5.0d0)*AMP(V(n,5),V(n,6)))**2-
      +        2.0d0*(-DSQRT(5.0d0)*AMP(V(k,2),V(k,1))-
      +             DSQRT(2.0d0)*AMP(V(k,3),V(k,2))+
      +             DSQRT(2.0d0)*AMP(V(k,5),V(k,4))+
@@ -10016,7 +10028,7 @@ C     definicja wspolczynnikow p
      +             DSQRT(5.0d0)*AMP(V(n,2),V(n,1))+
      +             DSQRT(2.0d0)*AMP(V(n,3),V(n,2))-
      +             DSQRT(2.0d0)*AMP(V(n,5),V(n,4))-
-     +             DSQRT(5.0d0)*AMP(V(n,6),V(n,5)))**2.0-
+     +             DSQRT(5.0d0)*AMP(V(n,6),V(n,5)))**2-
      +        1.0d0/2.0d0*(DSQRT(10.0d0)*AMP(V(k,1),V(k,3))+
      +        3.0d0* DSQRT(2.0d0)*AMP(V(k,2),V(k,4))+
      +        3.0d0* DSQRT(2.0d0)*AMP(V(k,3),V(k,5))+
@@ -10024,7 +10036,7 @@ C     definicja wspolczynnikow p
      +             DSQRT(10.0d0)*AMP(V(n,1),V(n,3))-
      +        3.0d0* DSQRT(2.0d0)*AMP(V(n,2),V(n,4))-
      +        3.0d0* DSQRT(2.0d0)*AMP(V(n,3),V(n,5))-
-     +             DSQRT(10.0d0)*AMP(V(n,4),V(n,6)))**2.0-
+     +             DSQRT(10.0d0)*AMP(V(n,4),V(n,6)))**2-
      +        1.0d0/2.0d0*(DSQRT(10.0d0)*AMP(V(k,3),V(k,1))+
      +        3.0d0* DSQRT(2.0d0)*AMP(V(k,4),V(k,2))+
      +        3.0d0* DSQRT(2.0d0)*AMP(V(k,5),V(k,3))+
@@ -10032,7 +10044,7 @@ C     definicja wspolczynnikow p
      +             DSQRT(10.0d0)*AMP(V(n,3),V(n,1))-
      +        3.0d0* DSQRT(2.0d0)*AMP(V(n,4),V(n,2))-
      +        3.0d0* DSQRT(2.0d0)*AMP(V(n,5),V(n,3))-
-     +             DSQRT(10.0d0)*AMP(V(n,6),V(n,4)))**2.0
+     +             DSQRT(10.0d0)*AMP(V(n,6),V(n,4)))**2
 
  25   CONTINUE
  24   CONTINUE
@@ -10843,6 +10855,9 @@ c      C(1,1,19)=gz**2*(primo)*1.0d-0
       COMPLEX*16 CC0(49),CC1(49),CC_1(49)
       COMPLEX*16 CC0a(2),CC1a(2),CC_1a(2),ADM(2,2)
       COMPLEX*16 AMP
+      COMPLEX*16 AMPX,AMPY
+C     Statement function: same arithmetic as external AMP, but inlined.
+      AMP(AMPX,AMPY)=AMPX*DCONJG(AMPY)
 
       WI=PI2*BZ
       WS=658.2*WI
@@ -11181,29 +11196,29 @@ C*****************************************************************************
      +                    3.0d0*AMP(V(k,3),V(n,3))-
      +                    4.0d0*AMP(V(k,4),V(n,4))-
      +                    3.0d0*AMP(V(k,5),V(n,5))+
-     +                    5.0d0*AMP(V(k,7),V(n,7)))**2.0+
+     +                    5.0d0*AMP(V(k,7),V(n,7)))**2+
      +       1.0d0/4.0d0*(5.0d0*DSQRT(6.0d0)*AMP(V(k,1),V(n,2))+
      +                3.0d0*DSQRT(10.0d0)*AMP(V(k,2),V(n,3))+
      +                2.0d0*DSQRT(3.0d0)*AMP(V(k,3),V(n,4))-
      +                2.0d0*DSQRT(3.0d0)*AMP(V(k,4),V(n,5))-
      +                3.0d0*DSQRT(10.0d0)*AMP(V(k,5),V(n,6))-
-     +                5.0d0*DSQRT(6.0d0)*AMP(V(k,6),V(n,7)))**2.0+
+     +                5.0d0*DSQRT(6.0d0)*AMP(V(k,6),V(n,7)))**2+
      +       1.0d0/4.0d0*(-5.0d0*DSQRT(6.0d0)*AMP(V(k,2),V(n,1))-
      +                3.0d0*DSQRT(10.0d0)*AMP(V(k,3),V(n,2))-
      +                2.0d0*DSQRT(3.0d0)*AMP(V(k,4),V(n,3))+
      +                2.0d0*DSQRT(3.0d0)*AMP(V(k,5),V(n,4))+
      +                3.0d0*DSQRT(10.0d0)*AMP(V(k,6),V(n,5))+
-     +                5.0d0*DSQRT(6.0d0)*AMP(V(k,7),V(n,6)))**2.0+
+     +                5.0d0*DSQRT(6.0d0)*AMP(V(k,7),V(n,6)))**2+
      +               (DSQRT(15.0d0)*AMP(V(k,1),V(n,3))+
      +                DSQRT(30.0d0)*AMP(V(k,2),V(n,4))+
      +                6.0d0*AMP(V(k,3),V(n,5))+
      +                DSQRT(30.0d0)*AMP(V(k,4),V(n,6))+
-     +                DSQRT(15.0d0)*AMP(V(k,5),V(n,7)))**2.0+
+     +                DSQRT(15.0d0)*AMP(V(k,5),V(n,7)))**2+
      +               (DSQRT(15.0d0)*AMP(V(k,3),V(n,1))+
      +                DSQRT(30.0d0)*AMP(V(k,4),V(n,2))+
      +                6.0d0*AMP(V(k,5),V(n,3))+
      +                DSQRT(30.0d0)*AMP(V(k,6),V(n,4))+
-     +                DSQRT(15.0d0)*AMP(V(k,7),V(n,5)))**2.0
+     +                DSQRT(15.0d0)*AMP(V(k,7),V(n,5)))**2
 
  21   CONTINUE
  20   CONTINUE
@@ -11246,29 +11261,29 @@ C     definicja wspolczynnikow psi
      +                   3.0d0*AMP(V(k,3),V(n,3))-
      +                   4.0d0*AMP(V(k,4),V(n,4))-
      +                   3.0d0*AMP(V(k,5),V(n,5))+
-     +                   5.0d0*AMP(V(k,7),V(n,7)))**2.0-
+     +                   5.0d0*AMP(V(k,7),V(n,7)))**2-
      +      1.0d0/8.0d0*(5.0d0*DSQRT(6.0d0)*AMP(V(k,1),V(n,2))+
      +               3.0d0*DSQRT(10.0d0)*AMP(V(k,2),V(n,3))+
      +               2.0d0*DSQRT(3.0d0)*AMP(V(k,3),V(n,4))-
      +               2.0d0*DSQRT(3.0d0)*AMP(V(k,4),V(n,5))-
      +               3.0d0*DSQRT(10.0d0)*AMP(V(k,5),V(n,6))-
-     +               5.0d0*DSQRT(6.0d0)*AMP(V(k,6),V(n,7)))**2.0-
+     +               5.0d0*DSQRT(6.0d0)*AMP(V(k,6),V(n,7)))**2-
      +      1.0d0/8.0d0*(-5.0d0*DSQRT(6.0d0)*AMP(V(k,2),V(n,1))-
      +               3.0d0*DSQRT(10.0d0)*AMP(V(k,3),V(n,2))-
      +               2.0d0*DSQRT(3.0d0)*AMP(V(k,4),V(n,3))+
      +               2.0d0*DSQRT(3.0d0)*AMP(V(k,5),V(n,4))+
      +               3.0d0*DSQRT(10.0d0)*AMP(V(k,6),V(n,5))+
-     +               5.0d0*DSQRT(6.0d0)*AMP(V(k,7),V(n,6)))**2.0-
+     +               5.0d0*DSQRT(6.0d0)*AMP(V(k,7),V(n,6)))**2-
      +      1.0d0/2.0d0*(DSQRT(15.0d0)*AMP(V(k,1),V(n,3))+
      +               DSQRT(30.0d0)*AMP(V(k,2),V(n,4))+
      +               6.0d0*AMP(V(k,3),V(n,5))+
      +               DSQRT(30.0d0)*AMP(V(k,4),V(n,6))+
-     +               DSQRT(15.0d0)*AMP(V(k,5),V(n,7)))**2.0-
+     +               DSQRT(15.0d0)*AMP(V(k,5),V(n,7)))**2-
      +      1.0d0/2.0d0*(DSQRT(15.0d0)*AMP(V(k,3),V(n,1))+
      +               DSQRT(30.0d0)*AMP(V(k,4),V(n,2))+
      +               6.0d0*AMP(V(k,5),V(n,3))+
      +               DSQRT(30.0d0)*AMP(V(k,6),V(n,4))+
-     +               DSQRT(15.0d0)*AMP(V(k,7),V(n,5)))**2.0
+     +               DSQRT(15.0d0)*AMP(V(k,7),V(n,5)))**2
 
  23   CONTINUE
  22   CONTINUE
@@ -11318,7 +11333,7 @@ C     definicja wspolczynnikow p
      +                 3.0d0*AMP(V(n,3),V(n,3))+
      +                 4.0d0*AMP(V(n,4),V(n,4))+
      +                 3.0d0*AMP(V(n,5),V(n,5))-
-     +                 5.0d0*AMP(V(n,7),V(n,7)))**2.0-
+     +                 5.0d0*AMP(V(n,7),V(n,7)))**2-
      +    1.0d0/4.0d0*(5.0d0*DSQRT(6.0d0)*AMP(V(k,1),V(k,2))+
      +             3.0d0*DSQRT(10.0d0)*AMP(V(k,2),V(k,3))+
      +             2.0d0*DSQRT(3.0d0)*AMP(V(k,3),V(k,4))-
@@ -11330,7 +11345,7 @@ C     definicja wspolczynnikow p
      +             2.0d0*DSQRT(3.0d0)*AMP(V(n,3),V(n,4))+
      +             2.0d0*DSQRT(3.0d0)*AMP(V(n,4),V(n,5))+
      +             3.0d0*DSQRT(10.0d0)*AMP(V(n,5),V(n,6))+
-     +             5.0d0*DSQRT(6.0d0)*AMP(V(n,6),V(n,7)))**2.0d0-
+     +             5.0d0*DSQRT(6.0d0)*AMP(V(n,6),V(n,7)))**2-
      +            (DSQRT(15.0d0)*AMP(V(k,1),V(k,3))+
      +             DSQRT(30.0d0)*AMP(V(k,2),V(k,4))+
      +             6.0d0*AMP(V(k,3),V(k,5))+
@@ -11340,7 +11355,7 @@ C     definicja wspolczynnikow p
      +             DSQRT(30.0d0)*AMP(V(n,2),V(n,4))-
      +             6.0d0*AMP(V(n,3),V(n,5))-
      +             DSQRT(30.0d0)*AMP(V(n,4),V(n,6))-
-     +             DSQRT(15.0d0)*AMP(V(n,5),V(n,7)))**2.0d0
+     +             DSQRT(15.0d0)*AMP(V(n,5),V(n,7)))**2
 
  25   CONTINUE
  24   CONTINUE
@@ -12358,6 +12373,9 @@ c      C(1,1,19)=gz**2*(primo)
       COMPLEX*16 CC0(64),CC1(64),CC_1(64)
       COMPLEX*16 CC0a(2),CC1a(2),CC_1a(2),ADM(2,2)
       COMPLEX*16 AMP
+      COMPLEX*16 AMPX,AMPY
+C     Statement function: same arithmetic as external AMP, but inlined.
+      AMP(AMPX,AMPY)=AMPX*DCONJG(AMPY)
 
 
       WI=PI2*BZ
@@ -12761,35 +12779,35 @@ C*****************************************************************************
      +                    5.0D0*AMP(V(k,5),V(n,5))-
      +                    3.0D0*AMP(V(k,6),V(n,6))+      !changed to +
      +                    AMP(V(k,7),V(n,7))+
-     +                    7.0D0*AMP(V(k,8),V(n,8)))**2.0D0+
+     +                    7.0D0*AMP(V(k,8),V(n,8)))**2+
 
      +(3.0D0*DSQRT(7.0D0)*AMP(V(k,1),V(n,2))+
      +4.0D0*DSQRT(3.0D0)*AMP(V(k,2),V(n,3))+
      +DSQRT(15.0D0)*AMP(V(k,3),V(n,4))-
      +DSQRT(15.0D0)*AMP(V(k,5),V(n,6))-
      +4.0D0*DSQRT(3.0D0)*AMP(V(k,7),V(n,6))+
-     +3.0D0*DSQRT(7.0D0)*AMP(V(k,8),V(n,7)))**2.0D0+
+     +3.0D0*DSQRT(7.0D0)*AMP(V(k,8),V(n,7)))**2+
 
      +(-3.0D0*DSQRT(7.0D0)*AMP(V(k,2),V(n,1))-
      +4.0D0*DSQRT(3.0D0)*AMP(V(k,3),V(n,2))-
      +DSQRT(15.0D0)*AMP(V(k,4),V(n,3))+
      +DSQRT(15.0D0)*AMP(V(k,6),V(n,5))+
      +4.0D0*DSQRT(3.0D0)*AMP(V(k,6),V(n,7))-
-     +3.0D0*DSQRT(7.0D0)*AMP(V(k,7),V(n,8)))**2.0D0+
+     +3.0D0*DSQRT(7.0D0)*AMP(V(k,7),V(n,8)))**2+
 
      +(DSQRT(21.0D0)*AMP(V(k,1),V(n,3))+
      +3.0D0*DSQRT(5.0D0)*AMP(V(k,2),V(n,4))+
      +2.0D0*DSQRT(15.0D0)*AMP(V(k,3),V(n,5))+
      +2.0D0*DSQRT(15.0D0)*AMP(V(k,4),V(n,6))+
      +3.0D0*DSQRT(5.0D0)*AMP(V(k,5),V(n,7))+
-     +DSQRT(21.0D0)*AMP(V(k,6),V(n,8)))**2.0D0+
+     +DSQRT(21.0D0)*AMP(V(k,6),V(n,8)))**2+
 
      +(DSQRT(21.0D0)*AMP(V(k,3),V(n,1))+
      +3.0D0*DSQRT(5.0D0)*AMP(V(k,4),V(n,2))+
      +2.0D0*DSQRT(15.0D0)*AMP(V(k,5),V(n,3))+
      +2.0D0*DSQRT(15.0D0)*AMP(V(k,6),V(n,4))+
      +3.0D0*DSQRT(5.0D0)*AMP(V(k,7),V(n,5))+
-     +DSQRT(21.0D0)*AMP(V(k,8),V(n,6)))**2.0D0
+     +DSQRT(21.0D0)*AMP(V(k,8),V(n,6)))**2
 
  21   CONTINUE
  20   CONTINUE
@@ -12849,35 +12867,35 @@ C     definicja wspolczynnikow psi
      +                   5.0D0*AMP(V(k,5),V(n,5))-
      +                   3.0D0*AMP(V(k,6),V(n,6))+
      +                   AMP(V(k,7),V(n,7))+
-     +                   7.0D0*AMP(V(k,8),V(n,8)))**2.0-
+     +                   7.0D0*AMP(V(k,8),V(n,8)))**2-
 
      +1.0D0/2.0D0*(3.0D0*DSQRT(7.0D0)*AMP(V(k,1),V(n,2))+
      +             4.0D0*DSQRT(3.0D0)*AMP(V(k,2),V(n,3))+
      +             DSQRT(15.0D0)*AMP(V(k,3),V(n,4))-
      +             DSQRT(15.0D0)*AMP(V(k,5),V(n,6))-
      +             4.0D0*DSQRT(3.0D0)*AMP(V(k,6),V(n,7))-
-     +             3.0D0*DSQRT(7.0D0)*AMP(V(k,7),V(n,8)))**2.0D0-
+     +             3.0D0*DSQRT(7.0D0)*AMP(V(k,7),V(n,8)))**2-
 
      +1.0D0/2.0D0*(-3.0D0*DSQRT(7.0D0)*AMP(V(k,2),V(n,1))-
      +             4.0D0*DSQRT(3.0D0)*AMP(V(k,3),V(n,2))-
      +             DSQRT(15.0D0)*AMP(V(k,4),V(n,3))+
      +             DSQRT(15.0D0)*AMP(V(k,6),V(n,5))+
      +             4.0D0*DSQRT(3.0D0)*AMP(V(k,7),V(n,6))+
-     +             3.0D0*DSQRT(7.0D0)*AMP(V(k,8),V(n,7)))**2.0D0-
+     +             3.0D0*DSQRT(7.0D0)*AMP(V(k,8),V(n,7)))**2-
 
      +1.0D0/2.0D0*(DSQRT(21.0D0)*AMP(V(k,1),V(n,3))+
      +             3.0D0*DSQRT(5.0D0)*AMP(V(k,2),V(n,4))+
      +             2.0D0*DSQRT(15.0D0)*AMP(V(k,3),V(n,5))+
      +             2.0D0*DSQRT(15.0D0)*AMP(V(k,4),V(n,6))+
      +             3.0D0*DSQRT(5.0D0)*AMP(V(k,5),V(n,7))+
-     +             DSQRT(21.0D0)*AMP(V(k,6),V(n,8)))**2.0D0-
+     +             DSQRT(21.0D0)*AMP(V(k,6),V(n,8)))**2-
 
      +1.0D0/2.0D0*(DSQRT(21.0D0)*AMP(V(k,3),V(n,1))+
      +             3.0D0*DSQRT(5.0D0)*AMP(V(k,4),V(n,2))+
      +             2.0D0*DSQRT(15.0D0)*AMP(V(k,5),V(n,3))+
      +             2.0D0*DSQRT(15.0D0)*AMP(V(k,6),V(n,4))+
      +             3.0D0*DSQRT(5.0D0)*AMP(V(k,7),V(n,5))+
-     +             DSQRT(21.0D0)*AMP(V(k,8),V(n,6)))**2.0D0
+     +             DSQRT(21.0D0)*AMP(V(k,8),V(n,6)))**2
 
  23   CONTINUE
  22   CONTINUE
@@ -12939,7 +12957,7 @@ C     definicja wspolczynnikow p
      +                 5.0D0*AMP(V(n,5),V(n,5))+
      +                 3.0D0*AMP(V(n,6),V(n,6))-
      +                 AMP(V(n,7),V(n,7))-
-     +                 7.0D0*AMP(V(n,8),V(n,8)))**2.0D0-
+     +                 7.0D0*AMP(V(n,8),V(n,8)))**2-
 
      +               (3.0D0*DSQRT(7.0D0)*AMP(V(k,1),V(k,2))+
      +                 4.0D0*DSQRT(3.0D0)*AMP(V(k,2),V(k,3))+
@@ -12952,7 +12970,7 @@ C     definicja wspolczynnikow p
      +                 DSQRT(15.0D0)*AMP(V(n,3),V(n,4))+
      +                 DSQRT(15.0D0)*AMP(V(n,5),V(n,6))+
      +                 4.0D0*DSQRT(3.0D0)*AMP(V(n,6),V(n,7))+
-     +                 3.0D0*DSQRT(7.0D0)*AMP(V(n,7),V(n,8)))**2.0D0-
+     +                 3.0D0*DSQRT(7.0D0)*AMP(V(n,7),V(n,8)))**2-
 
      +               (DSQRT(21.0D0)*AMP(V(k,1),V(k,3))+
      +                 3.0D0*DSQRT(5.0D0)*AMP(V(k,2),V(k,4))+
@@ -12965,7 +12983,7 @@ C     definicja wspolczynnikow p
      +                 2.0D0*DSQRT(15.0D0)*AMP(V(n,3),V(n,5))-
      +                 2.0D0*DSQRT(15.0D0)*AMP(V(n,4),V(n,6))-
      +                 3.0D0*DSQRT(5.0D0)*AMP(V(n,5),V(n,7))-
-     +                 DSQRT(21.0D0)*AMP(V(n,6),V(n,8)))**2.0D0
+     +                 DSQRT(21.0D0)*AMP(V(n,6),V(n,8)))**2
 
  25   CONTINUE
  24   CONTINUE

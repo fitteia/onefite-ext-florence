@@ -1,0 +1,40 @@
+name: CI
+
+# Every pull request and every push to main: the model bundle's own tests
+# (models/*/tests/run_tests.sh) and onefite-c-code's extension validator
+# (tools/extensions.pl validate, as the installer runs it).
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: extension
+
+      - name: Compilers
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends gcc gfortran make perl liblapack-dev libblas-dev
+
+      - name: Model tests
+        run: |
+          for t in extension/models/*/tests/run_tests.sh; do
+            echo "== $t"; bash "$t"
+          done
+
+      # The validator wants the bundle in a directory named after it, as
+      # the installer places it (C/extensions/<name>).
+      - name: Validate the bundle with onefite-c-code's extensions.pl
+        run: |
+          git clone --depth 1 https://github.com/fitteia/onefite-c-code.git C
+          name="$(perl -MJSON::PP -0777 -ne 'print decode_json($_)->{name}' extension/extension.json)"
+          mkdir -p bundles && cp -r extension "bundles/$name"
+          perl C/tools/extensions.pl validate "bundles/$name" --c-root C

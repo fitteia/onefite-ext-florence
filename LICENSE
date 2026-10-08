@@ -3,6 +3,15 @@ Copyright (c) 2026, Giacomo Parigi, Adam Kubrak, and Pedro Sebastiao.
 NAG-derived code in the Florence bundle was developed with AI-assisted
 programming support from Claude and Codex.)
 
+The Florence model is derived from the NMRD program by I. Bertini, O. Galas,
+C. Luchinat and G. Parigi (CERM, University of Florence). Giacomo Parigi and
+Adam Kubrak confirmed in writing (2026-10-08) that it may be redistributed
+and modified as part of OneFit-Engine under the Artistic License 2.0, with
+attribution to the original authors and citation of J. Magn. Reson. Ser. A
+113, 151 (1995) for the original Florence model, and J. Chem. Phys. 111,
+5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001) for the modified
+Florence model - see models/florence/NOTICE.
+
 Licensed under the Artistic License 2.0 (SPDX: Artistic-2.0). Full text below.
 
 The Artistic License 2.0

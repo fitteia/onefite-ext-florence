@@ -3,7 +3,15 @@ Florence model bundle
 Copyright (c) 2026, Giacomo Parigi and Adam Kubrak (original authors),
 and Pedro Sebastiao.
 
+Derived from the NMRD program by I. Bertini, O. Galas, C. Luchinat and
+G. Parigi (CERM, University of Florence), redistributed and modified with
+the written permission of Giacomo Parigi and Adam Kubrak (2026-10-08), on
+condition of attribution to the original authors and citation of
+J. Magn. Reson. Ser. A 113, 151 (1995) (original model) and J. Chem. Phys.
+111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001) (modified
+model, 2 <= FLAG < 3).
+
 Licensed under the Artistic License 2.0 (SPDX: Artistic-2.0) - see the
 repository's top-level LICENSE for the full license text, and this
-bundle's own NOTICE for its provenance and eigensolver-replacement
-history.
+bundle's own NOTICE for its provenance, the permission, the full
+references and the eigensolver-replacement history.

@@ -16,20 +16,23 @@
   "functions": {
     "florence": {
       "devision": "Paramagnetic",
-      "function": "Florence(FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)"
+      "function": "Florence(FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001)."
     },
     "florenceN": {
       "devision": "Paramagnetic",
-      "function": "FlorenceN(index,n,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)"
+      "function": "FlorenceN(index,n,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001)."
     },
     "florenceN4LS": {
       "devision": "Paramagnetic",
       "function": "FlorenceN4LS(index,n,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
-      "description": "FlorenceN() and FlorenceN4LS() are identical."
+      "description": "FlorenceN() and FlorenceN4LS() are identical. Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001)."
     },
     "florence4": {
       "devision": "Paramagnetic",
-      "function": "Florence4(index,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)"
+      "function": "Florence4(index,FREQ,SI,GAMMAI,SPIN,IREL,DELTA2,TAURM,TAUVM,TAUMM,DPARAM,EPARAM,S4M,GXM,GYM,GZM,AXM,AYM,AZM,DM,DDM,CONCM,ACQ,AMOLFRAM,RKM,ACONTM,THETAM,PHIM,FLAG)",
+      "description": "Cite: Bertini, Galas, Luchinat, Parigi, J. Magn. Reson. Ser. A 113, 151 (1995); for 2 <= FLAG < 3 (modified model) also J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001)."
     }
   }
 }

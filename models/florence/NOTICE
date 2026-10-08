@@ -1,5 +1,30 @@
 Florence model bundle
 
+Origin, permission and citation
+
+The Florence model is the NMRD program for paramagnetic enhancements of
+nuclear relaxation rates in slowly rotating systems by I. Bertini, O. Galas,
+C. Luchinat and G. Parigi, distributed by CERM, University of Florence:
+https://www.cerm.unifi.it/research/software/19-research/164-nmrd
+
+Giacomo Parigi and Adam Kubrak confirmed in writing (email of 2026-10-08)
+that "the Florence/NMRD code may be redistributed and modified as part of
+OneFit-Engine under the Artistic License 2.0, with attribution to the
+original authors and citation of J Magn Reson Ser A 113:151 (1995), for the
+original Florence model, and J Chem Phys 111:5795 (1999) and Phys Chem
+3:4907 (2001) for the modified Florence model."
+
+Work that uses these functions must cite:
+
+- the original Florence model (FLAG < 2 or FLAG >= 3):
+  I. Bertini, O. Galas, C. Luchinat, G. Parigi,
+  J. Magn. Reson. Ser. A 113, 151 (1995);
+- the modified Florence model (2 <= FLAG < 3, Florence_f.f's MODFLOR):
+  I. Bertini, J. Kowalewski, C. Luchinat, T. Nilsson, G. Parigi,
+  J. Chem. Phys. 111, 5795 (1999), and
+  D. Kruk, T. Nilsson, J. Kowalewski,
+  Phys. Chem. Chem. Phys. 3, 4907 (2001).
+
 The Florence C and Fortran sources previously included externally sourced
 numerical routines whose redistribution terms required review before this
 bundle could be published or included in a binary release.

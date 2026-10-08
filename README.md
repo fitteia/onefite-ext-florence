@@ -32,6 +32,15 @@ redistribution). Point `onefite-go doctor -install`'s
 if you have access to it; everything else about the install process
 is identical.
 
+## Citing
+
+The Florence model is CERM's NMRD program (University of Florence), used
+and modified here with the written permission of its authors. Cite
+J. Magn. Reson. Ser. A 113, 151 (1995) for the original model, and
+J. Chem. Phys. 111, 5795 (1999) and Phys. Chem. Chem. Phys. 3, 4907 (2001)
+for the modified one (2 <= FLAG < 3) - full references and the permission
+in `models/florence/NOTICE`.
+
 ## Installing
 
 This bundle is built automatically as part of the normal `onefite-go`

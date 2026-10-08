@@ -47,7 +47,7 @@ jobs:
       # the installer places it (C/extensions/<name>).
       - name: Validate the bundle with onefite-c-code's extensions.pl
         run: |
-          git clone --depth 1 https://github.com/fitteia/onefite-c-code.git C
+          git clone --depth 1 https://github.com/fitteia/OneFit-Engine-C.git C
           name="$(perl -MJSON::PP -0777 -ne 'print decode_json($_)->{name}' extension/extension.json)"
           mkdir -p bundles && cp -r extension "bundles/$name"
           perl C/tools/extensions.pl validate "bundles/$name" --c-root C

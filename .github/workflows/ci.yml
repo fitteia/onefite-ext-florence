@@ -1,28 +1,41 @@
 name: CI
 
-# Every pull request and every push to main: the model bundle's own tests
-# (models/*/tests/run_tests.sh) and onefite-c-code's extension validator
-# (tools/extensions.pl validate, as the installer runs it).
+# Every pull request and push to main, and once a week: the tests
+# inside Debian containers - trixie (stable, must pass) and forky (testing,
+# the next stable: allowed to fail, an early warning of what the next Debian
+# release will change; the weekly run catches it moving between pushes).
 on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: test (debian ${{ matrix.debian }})
+    runs-on: ubuntu-24.04
+    container: debian:${{ matrix.debian }}
+    continue-on-error: ${{ matrix.debian == 'forky' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        debian: [trixie, forky]
     steps:
+      # git first, so actions/checkout makes a real git checkout
+      - name: Debian packages
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends git ca-certificates \
+            gcc gfortran make perl liblapack-dev libblas-dev
+
       - uses: actions/checkout@v4
         with:
           path: extension
-
-      - name: Compilers
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq --no-install-recommends gcc gfortran make perl liblapack-dev libblas-dev
 
       - name: Model tests
         run: |
